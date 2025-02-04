@@ -152,8 +152,8 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 200%;
+  height: 200%;
   background-color: black;
   display: flex;
   align-items: center;
@@ -167,7 +167,7 @@ body::before {
   text-align: center;
 }
 #splash-logo {
-  max-width: 300px; /* imagem maior */
+  max-width: 500px; /* imagem maior */
   margin-bottom: 20px;
 }
 #hacker-text {
@@ -184,11 +184,11 @@ body::before {
    Top Banner
    =================================================================== */
 #topBanner {
-  width: 100%;
+  width: 80%;
   overflow: hidden;
 }
 #topBanner img {
-  width: 100%;
+  width: 80%;
   display: block;
 }
 
