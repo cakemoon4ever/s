@@ -584,7 +584,7 @@ main {
 .button-highlightgame {
   display: block;
   margin-top: 15px; /* Adiciona espaço entre o botão e o texto */
-  width: 100%; /* Faz o botão ocupar a largura total */
+  width: 50%; /* Faz o botão ocupar a largura total */
   text-align: center;
 }
 
