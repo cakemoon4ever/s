@@ -636,5 +636,19 @@ main {
 }
 
 /* ===================================================================
+   Centralizando os botoes
+   =================================================================== */
+#join .section-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o botão */
+  text-align: center; /* Garante que o texto também fique centralizado */
+}
+
+#join .button-highlightgame {
+  margin-top: 10px; /* Adiciona um pequeno espaçamento acima do botão */
+}
+
+/* ===================================================================
    End of CSS (Excluding Team Section)
    =================================================================== */
