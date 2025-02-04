@@ -186,10 +186,12 @@ body::before {
 #topBanner {
   width: 80%;
   overflow: hidden;
+  position: center;
 }
 #topBanner img {
   width: 80%;
   display: block;
+  position: center;
 }
 
 /* ===================================================================
