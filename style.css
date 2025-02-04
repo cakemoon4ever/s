@@ -44,7 +44,7 @@ body::before {
   z-index: 1000;
   color: #00eaff;
   animation: pulse 2s infinite;
-  border-bottom: none; /* Removendo a linha azul */
+  border-bottom: none; /* Remove a linha azul */
 }
 
 @keyframes pulse {
@@ -184,16 +184,14 @@ body::before {
 /* ===================================================================
    Top Banner
    =================================================================== */
-/* Top Banner - Agora Logo Abaixo do Crypto Ticker */
+/* Top Banner - Agora NÃO está fixo */
 #topBanner {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  top: 50px; /* Ajuste para ficar logo abaixo do ticker */
-  left: 0;
-  z-index: 999; /* Um nível abaixo do ticker */
+  position: relative; /* Alterado de 'fixed' para 'relative' */
+  margin-top: 50px; /* Garante espaçamento abaixo do ticker */
   background-color: #000;
 }
 
@@ -204,9 +202,9 @@ body::before {
   display: block;
 }
 
-/* Adiciona Espaçamento ao Conteúdo Principal */
+/* Ajuste o body para evitar sobreposição */
 body {
-  padding-top: 120px; /* Ajuste para evitar sobreposição do banner e ticker */
+  padding-top: 60px; /* Garante que o conteúdo não fique escondido sob o ticker */
 }
 
 
