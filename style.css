@@ -191,7 +191,7 @@ body::before {
   justify-content: center;
   align-items: center;
   position: relative; /* Alterado de 'fixed' para 'relative' */
-  margin-top: 20px; /* Garante espaçamento abaixo do ticker */
+  margin-top: 10px; /* Garante espaçamento abaixo do ticker */
   background-color: #000;
 }
 
@@ -204,7 +204,7 @@ body::before {
 
 /* Ajuste o body para evitar sobreposição */
 body {
-  padding-top: 60px; /* Garante que o conteúdo não fique escondido sob o ticker */
+  padding-top: 30px; /* Garante que o conteúdo não fique escondido sob o ticker */
 }
 
 
@@ -215,7 +215,7 @@ body {
   width: 80%;
   max-width: 900px;
   margin: 40px auto;
-  padding: 25px;
+  padding: 20px;
   background: rgba(0, 0, 0, 0.8);
   border: 4px solid #00eaff;
   border-radius: 15px;
@@ -396,7 +396,7 @@ footer p {
    Main Content Spacing
    =================================================================== */
 main {
-  padding-top: 120px;
+  padding-top: 40px;
   padding-bottom: 100px;
 }
 
