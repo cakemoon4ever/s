@@ -191,7 +191,7 @@ body::before {
   justify-content: center;
   align-items: center;
   position: relative; /* Alterado de 'fixed' para 'relative' */
-  margin-top: 50px; /* Garante espaçamento abaixo do ticker */
+  margin-top: 20px; /* Garante espaçamento abaixo do ticker */
   background-color: #000;
 }
 
