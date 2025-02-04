@@ -15,7 +15,7 @@ body {
   overflow-x: hidden;
 }
 
-/* BACKGROUND: back.gif with 50% opacity */
+/* BACKGROUND: back1.gif with 50% opacity */
 body::before {
   content: "";
   position: fixed;
