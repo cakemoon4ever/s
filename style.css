@@ -39,12 +39,12 @@ body::before {
   width: 100%;
   padding: 15px 0;
   background: #111;
-  border-bottom: 4px solid #00eaff;
   font-size: 20px;
   text-align: center;
   z-index: 1000;
   color: #00eaff;
   animation: pulse 2s infinite;
+  border-bottom: none; /* Removendo a linha azul */
 }
 
 @keyframes pulse {
