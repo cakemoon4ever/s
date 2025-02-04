@@ -21,6 +21,24 @@
       </div>
     </div>
 
+    <!-- Top Banner -->
+    <header id="topBanner">
+      <img src="top-banner.png" alt="Cakemoon Banner" />
+    </header>
+
+    <!-- Crypto Ticker (Marquee) -->
+    <div id="crypto-ticker">
+      <marquee behavior="scroll" direction="left" scrollamount="5" id="ticker-text">
+        Loading prices...
+      </marquee>
+    </div>
+
+    <!-- Mystery Section (Enigma Counter) -->
+    <section id="mystery" class="content-box">
+      <h2 class="neon-text">Mystery</h2>
+      <div id="enigma" class="enigma-counter"></div>
+    </section>
+
     <!-- Floating Menu (Fixed) -->
     <div id="floating-menu">
       <div class="menu-button">Menu</div>
@@ -80,9 +98,9 @@
         <h2 class="neon-text">Join Cakemoon</h2>
         <div class="section-content">
           <p>
-            Become part of our vibrant community. Connect with us on Telegram and get exclusive updates!
+            Become part of our vibrant community. Connect with us on Telegram for exclusive updates!
           </p>
-          <a href="https://t.me/cakemoon" class="button-highlightgame" target="_blank">Join Telegram</a>
+          <button class="button-highlightgame" onclick="window.open('https://t.me/cakemoon', '_blank')">Join Telegram</button>
         </div>
       </section>
 
@@ -93,7 +111,7 @@
           <p>
             Enter our futuristic game hub and enjoy neon-inspired crypto games. Experience interactive challenges and earn rewards as you play!
           </p>
-          <a href="https://example.com/gamehub" class="button-highlightgame" target="_blank">Play Now</a>
+          <button class="button-highlightgame" onclick="window.open('https://example.com/gamehub', '_blank')">Play Now</button>
         </div>
       </section>
 
@@ -101,7 +119,7 @@
       <section id="buy" class="content-box">
         <h2 class="neon-text">Buy Cakemoon with</h2>
         <div class="section-content">
-          <button class="button-highlightgame">
+          <button class="button-highlightgame" onclick="window.open('https://t.me/maestro?start=r-marcelo_vp', '_blank')">
             <img src="maestro.png" alt="Maestro Sniper Bot" />
             <span>Maestro Sniper Bot</span>
           </button>
