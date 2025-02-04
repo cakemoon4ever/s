@@ -1,5 +1,36 @@
 // Espera o DOM estar carregado antes de iniciar
 document.addEventListener("DOMContentLoaded", () => {
+  /* SPLASH MODAL: Typewriter Effect */
+  const splashModal = document.getElementById("splashModal");
+  const hackerTextElem = document.getElementById("hacker-text");
+  const splashText = "Cakemoon is 4life\nEarn passive income in $Cake";
+  let index = 0;
+  const typeDelay = 50; // Tempo por caractere em milissegundos
+  const fadeDelay = 1000; // Tempo adicional para o fade-out
+  
+  function typeText() {
+    if (index < splashText.length) {
+      // Se encontrar quebra de linha, insere <br>
+      if (splashText[index] === "\n") {
+        hackerTextElem.innerHTML += "<br>";
+      } else {
+        hackerTextElem.innerHTML += splashText[index];
+      }
+      index++;
+      setTimeout(typeText, typeDelay);
+    }
+  }
+  typeText();
+  
+  // Calcula o tempo total e inicia o fade-out do splash modal
+  const totalDuration = splashText.length * typeDelay + fadeDelay;
+  splashModal.style.transition = `opacity ${totalDuration}ms linear`;
+  splashModal.style.pointerEvents = "none";
+  splashModal.style.opacity = "0";
+  setTimeout(() => {
+    splashModal.style.display = "none";
+  }, totalDuration);
+
   /* Crypto Prices Ticker */
   async function fetchCryptoPrices() {
     try {
@@ -325,8 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* Initialization of all modules */
-  // Se desejar remover banner rotativo, remova as funções relacionadas e a chamada de setInterval abaixo.
-  // setInterval(rotateBanner, 7000);
+  // Removemos o banner rotativo, pois não desejamos essa funcionalidade.
   fetchCryptoPrices();
   setInterval(fetchCryptoPrices, 60000);
   getRandomFirstSection();
