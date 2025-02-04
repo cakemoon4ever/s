@@ -573,8 +573,7 @@ main {
 .buy-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Mantém texto e imagem alinhados */
-  gap: 15px; /* Espaçamento entre o texto e a imagem */
+  gap: 15px; /* Espaçamento entre a imagem e o texto */
   text-align: left; /* Alinha o texto à esquerda */
 }
 
