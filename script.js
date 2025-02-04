@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
   /* SPLASH MODAL: Typewriter Effect */
   const splashModal = document.getElementById("splashModal");
   const hackerTextElem = document.getElementById("hacker-text");
-  const splashText = "Cakemoon is 4life\nEarn passive income in $Cake";
+  const splashText = "Cakemoon is 4life\nEarn passive income in $Cake\na Kader Effect token";
   let index = 0;
   const typeDelay = 50; // Tempo por caractere (ms)
-  const fadeDelay = 4000; // Tempo adicional para o fade-out (4 segundos)
+  const fadeDelay = 5000; // Tempo adicional para o fade-out (5 segundos)
 
   function typeText() {
     if (index < splashText.length) {
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .join(" | ");
       // Adiciona uma parte estática para o Cakemoon (se não estiver na API)
-      prices += " | CAKEMOON: $0.00 (0%)";
+      prices += " | Buy CAKEMOON";
       document.getElementById("ticker-text").innerHTML = prices;
     } catch (error) {
       document.getElementById("ticker-text").textContent = "Failed to load crypto prices.";
