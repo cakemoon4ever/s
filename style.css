@@ -113,12 +113,11 @@ body::before {
   text-align: right;
 }
 #floating-menu .menu-dropdown li a {
-  color: #ff1493;
+  color: #00eaff;
   text-decoration: none;
   transition: color 0.3s, transform 0.3s;
 }
 #floating-menu .menu-dropdown li a:hover {
-  color: #00eaff;
   transform: scale(1.1);
 }
 
@@ -168,7 +167,7 @@ body::before {
   text-align: center;
 }
 #splash-logo {
-  max-width: 200px;
+  max-width: 300px; /* imagem maior */
   margin-bottom: 20px;
 }
 #hacker-text {
@@ -182,48 +181,19 @@ body::before {
 }
 
 /* ===================================================================
-   Banner Section (Optional - not used in this version)
+   Top Banner
    =================================================================== */
-.banner-section {
-  margin-top: 20px;
-}
-.banner-container {
-  position: relative;
-  max-width: 1024px;
-  margin: 20px auto;
+#topBanner {
+  width: 100%;
   overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 0 30px #00eaff;
 }
-.banner-container img {
+#topBanner img {
   width: 100%;
   display: block;
-  transition: opacity 0.5s ease-in-out;
-}
-.banner-nav {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-}
-.banner-nav button {
-  background: rgba(0, 0, 0, 0.6);
-  border: none;
-  padding: 12px;
-  font-size: 2.2rem;
-  color: #00eaff;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-}
-.banner-nav button:hover {
-  background: rgba(0, 0, 0, 0.8);
-  transform: scale(1.15);
 }
 
 /* ===================================================================
-   Content Boxes & Neon Headings
+   Content Boxes & Neon Headings (No Scaling Animation)
    =================================================================== */
 .content-box {
   width: 80%;
@@ -233,22 +203,11 @@ body::before {
   background: rgba(0, 0, 0, 0.8);
   border: 4px solid #00eaff;
   border-radius: 15px;
-  animation: changeBorderColor 5s linear infinite, rotateContent 10s linear infinite;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-@keyframes changeBorderColor {
-  0% { border-color: #00eaff; }
-  50% { border-color: #ff1493; }
-  100% { border-color: #00eaff; }
-}
-@keyframes rotateContent {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(2deg); }
-  100% { transform: rotate(0deg); }
+  /* Removido o efeito de escala/rotação */
+  transition: box-shadow 0.3s;
 }
 .content-box:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 40px #ff1493;
+  box-shadow: 0 0 40px #00eaff;
 }
 .content-box ul {
   list-style: none;
@@ -263,14 +222,14 @@ body::before {
 .neon-text {
   font-family: 'Orbitron', sans-serif;
   color: #00eaff;
-  text-shadow: 0 0 8px #00eaff, 0 0 15px #00eaff, 0 0 25px #ff1493, 0 0 35px #ff1493;
+  text-shadow: 0 0 8px #00eaff, 0 0 15px #00eaff, 0 0 25px #fff, 0 0 35px #fff;
   text-align: center;
   margin-bottom: 20px;
   font-size: 2rem;
 }
 
 /* ===================================================================
-   Buttons and Links
+   Buttons and Links (Using Neon Blue and White Shimmer)
    =================================================================== */
 .button-highlightgame,
 .button {
@@ -282,30 +241,20 @@ body::before {
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
-}
-.button-highlightgame {
-  background: #ff1493;
+  background: #00eaff;
   color: #fff;
-  box-shadow: 0 0 15px #ff1493;
+  box-shadow: 0 0 15px #00eaff;
 }
-.button-highlightgame:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px #ff1493;
-}
-.button {
-  background: #1e90ff;
-  color: #fff;
-  box-shadow: 0 0 15px #1e90ff;
-}
+.button-highlightgame:hover,
 .button:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 25px #1e90ff;
+  box-shadow: 0 0 25px #00eaff;
 }
 a {
   transition: color 0.3s, transform 0.3s;
 }
 a:hover {
-  color: #ff1493;
+  color: #fff;
   transform: scale(1.05);
 }
 
@@ -408,7 +357,7 @@ footer p {
   width: 100%;
   padding: 12px;
   border: none;
-  background: #1e90ff;
+  background: #00eaff;
   color: #fff;
   font-size: 1rem;
   border-radius: 5px;
@@ -416,10 +365,10 @@ footer p {
   transition: background 0.3s;
 }
 .modal-content button:hover {
-  background: #1c86ee;
+  background: #008ecc;
 }
 .close {
-  color: #ff1493;
+  color: #00eaff;
   position: absolute;
   top: 10px;
   right: 20px;
@@ -470,14 +419,13 @@ main {
   border: 4px solid #00eaff;
   border-radius: 15px;
   box-shadow: 0 0 30px #00eaff;
-  animation: changeBorderColor 5s linear infinite, rotateContent 10s linear infinite;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: box-shadow 0.3s;
 }
 #faq.faq-section h2 {
   margin-bottom: 20px;
   font-family: 'Orbitron', sans-serif;
   color: #00eaff;
-  text-shadow: 0 0 8px #00eaff, 0 0 15px #00eaff, 0 0 25px #ff1493, 0 0 35px #ff1493;
+  text-shadow: 0 0 8px #00eaff, 0 0 15px #00eaff, 0 0 25px #fff, 0 0 35px #fff;
   text-align: center;
   font-size: 2rem;
 }
@@ -491,7 +439,7 @@ main {
 .faq-item .faq-question {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ff1493;
+  color: #00eaff;
   padding: 10px;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
@@ -567,15 +515,8 @@ main {
 }
 .mini-card:hover,
 .mini-card:focus-within {
-  transform: translate(0, -1rem) rotate(3deg);
+  transform: translate(0, -1rem);
   z-index: 20;
-}
-.mini-card:hover ~ .mini-card {
-  transform: translateX(30px);
-}
-.mini-card:first-child:hover,
-.mini-card:first-child:focus-within {
-  transform: translate(-0.5rem, -1rem) rotate(3deg);
 }
 @media (max-width: 1200px) {
   .mini-card {
