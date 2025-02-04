@@ -582,16 +582,21 @@ main {
   height: auto;
 }
 
+/* Garante que os botões fiquem centralizados na parte de baixo */
 .button-container {
   display: flex;
   justify-content: center; /* Centraliza o botão horizontalmente */
+  align-items: center;
   width: 100%;
-  margin-top: 15px;
+  margin-top: auto; /* Joga o botão para a parte inferior do container */
+  padding-top: 15px;
 }
 
+/* Certifica que o botão ocupa um tamanho adequado */
 .button-highlightgame {
   display: inline-block;
   text-align: center;
+  padding: 12px 24px;
 }
 
 /* ===================================================================
