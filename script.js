@@ -5,12 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const hackerTextElem = document.getElementById("hacker-text");
   const splashText = "Cakemoon is 4life\nEarn passive income in $Cake";
   let index = 0;
-  const typeDelay = 50; // Tempo por caractere em milissegundos
-  const fadeDelay = 1000; // Tempo adicional para o fade-out
-  
+  const typeDelay = 50; // Tempo por caractere (ms)
+  const fadeDelay = 4000; // Tempo adicional para o fade-out (4 segundos)
+
   function typeText() {
     if (index < splashText.length) {
-      // Se encontrar quebra de linha, insere <br>
       if (splashText[index] === "\n") {
         hackerTextElem.innerHTML += "<br>";
       } else {
@@ -21,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   typeText();
-  
+
   // Calcula o tempo total e inicia o fade-out do splash modal
   const totalDuration = splashText.length * typeDelay + fadeDelay;
   splashModal.style.transition = `opacity ${totalDuration}ms linear`;
@@ -47,9 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
           return `${key.toUpperCase()}: $${price} (<span class="${colorClass}">${change}%</span>)`;
         })
         .join(" | ");
-      document.getElementById("crypto-prices").innerHTML = prices;
+      // Adiciona uma parte estática para o Cakemoon (se não estiver na API)
+      prices += " | CAKEMOON: $0.00 (0%)";
+      document.getElementById("ticker-text").innerHTML = prices;
     } catch (error) {
-      document.getElementById("crypto-prices").textContent = "Failed to load crypto prices.";
+      document.getElementById("ticker-text").textContent = "Failed to load crypto prices.";
       console.error("Error fetching crypto prices:", error);
     }
   }
@@ -92,8 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Ready to Join the $MOON Revolution? 🚀",
         content: `
           <p>Step into the future with $MOON—the token that’s taking the BSC by storm! Powered by innovation, Cakemoon delivers rewards in $Cake 4life along with unmatched tokenomics.</p>
-          <a href="#" class="button-highlightgame">Buy $MOON Now</a>
-          <a href="https://t.me/cakemoon" class="button" target="_blank">Join Telegram</a>
+          <button class="button-highlightgame" onclick="window.open('#', '_blank')">Buy $MOON Now</button>
+          <button class="button" onclick="window.open('https://t.me/cakemoon', '_blank')">Join Telegram</button>
           <p>Join early to unlock exclusive rewards—the future of crypto is here!</p>
         `
       },
@@ -101,8 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Be Part of the Neon Wave 🌟",
         content: `
           <p>$MOON is more than a token—it’s a movement. Embrace advanced trading tools and a community-driven ethos. Experience rewards in $Cake 4life and be part of this neon revolution!</p>
-          <a href="#" class="button-highlightgame">Buy $MOON Now</a>
-          <a href="https://t.me/cakemoon" class="button" target="_blank">Join Telegram</a>
+          <button class="button-highlightgame" onclick="window.open('#', '_blank')">Buy $MOON Now</button>
+          <button class="button" onclick="window.open('https://t.me/cakemoon', '_blank')">Join Telegram</button>
           <p>Unlock exclusive benefits and be a key player in the Cakemoon movement!</p>
         `
       },
@@ -110,8 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Experience the Neon Future with $MOON",
         content: `
           <p>Unlock a world of possibilities with $MOON. Enjoy exclusive tools, sustainable rewards in $Cake 4life, and a secure, community-driven platform that sets the crypto standard.</p>
-          <a href="#" class="button-highlightgame">Buy $MOON Now</a>
-          <a href="https://t.me/cakemoon" class="button" target="_blank">Join Telegram</a>
+          <button class="button-highlightgame" onclick="window.open('#', '_blank')">Buy $MOON Now</button>
+          <button class="button" onclick="window.open('https://t.me/cakemoon', '_blank')">Join Telegram</button>
           <p>Embark on the most exciting crypto revolution—your journey starts now!</p>
         `
       }
@@ -356,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* Initialization of all modules */
-  // Removemos o banner rotativo, pois não desejamos essa funcionalidade.
+  // Removemos banner rotativo, pois não é desejado.
   fetchCryptoPrices();
   setInterval(fetchCryptoPrices, 60000);
   getRandomFirstSection();
