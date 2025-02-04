@@ -258,7 +258,7 @@ body {
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
   background: #00eaff;
-  color: #fff;
+  color: black;
   box-shadow: 0 0 15px #00eaff;
 }
 .button-highlightgame:hover,
@@ -270,7 +270,7 @@ a {
   transition: color 0.3s, transform 0.3s;
 }
 a:hover {
-  color: #fff;
+  color: black;
   transform: scale(1.05);
 }
 
