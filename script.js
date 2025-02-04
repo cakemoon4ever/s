@@ -30,30 +30,33 @@ document.addEventListener("DOMContentLoaded", () => {
     splashModal.style.display = "none";
   }, totalDuration);
 
-  /* Crypto Prices Ticker */
-  async function fetchCryptoPrices() {
-    try {
-      const response = await fetch(
-        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana&vs_currencies=usd&include_24hr_change=true"
-      );
-      if (!response.ok) throw new Error("Failed to fetch prices.");
-      const data = await response.json();
-      let prices = Object.entries(data)
-        .map(([key, value]) => {
-          const price = value.usd.toFixed(2);
-          const change = value.usd_24h_change.toFixed(2);
-          const colorClass = change >= 0 ? "positive" : "negative";
-          return `${key.toUpperCase()}: $${price} (<span class="${colorClass}">${change}%</span>)`;
-        })
-        .join(" | ");
-      // Adiciona uma parte estática para o Cakemoon (se não estiver na API)
-      prices += " | Buy CAKEMOON";
-      document.getElementById("ticker-text").innerHTML = prices;
-    } catch (error) {
-      document.getElementById("ticker-text").textContent = "Failed to load crypto prices.";
-      console.error("Error fetching crypto prices:", error);
-    }
+/* Crypto Prices Ticker */
+async function fetchCryptoPrices() {
+  try {
+    const response = await fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana&vs_currencies=usd&include_24hr_change=true"
+    );
+    if (!response.ok) throw new Error("Failed to fetch prices.");
+    const data = await response.json();
+    let prices = Object.entries(data)
+      .map(([key, value]) => {
+        const price = value.usd.toFixed(2);
+        const change = value.usd_24h_change.toFixed(2);
+        const colorClass = change >= 0 ? "positive" : "negative";
+        return `${key.toUpperCase()}: $${price} (<span class="${colorClass}">${change}%</span>)`;
+      })
+      .join(" | ");
+      
+    // Adiciona um link para "Buy CAKEMOON"
+    prices += ` | <a href="https://t.me/maestro?start=0x893535ed1b5c6969e62a10babfed4f5ff8373278-rfdtk" target="_blank" style="color: #00ffff; font-weight: bold; text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;">Buy CAKEMOON</a>`;
+
+    document.getElementById("ticker-text").innerHTML = prices;
+  } catch (error) {
+    document.getElementById("ticker-text").textContent = "Failed to load crypto prices.";
+    console.error("Error fetching crypto prices:", error);
   }
+}
+
 
   /* Dynamic Content */
   function getRandomFirstSection() {
