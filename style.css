@@ -23,7 +23,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("back1.gif") no-repeat center center fixed;
+  background: url("back.gif") no-repeat center center fixed;
   background-size: cover;
   opacity: 0.8;
   z-index: -2;
@@ -164,20 +164,25 @@ body::before {
   opacity: 1;
   pointer-events: auto;
 }
+#splash-content {
+  text-align: center;
+}
+#splash-logo {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
 #hacker-text {
-  width: 80%;
-  max-width: 800px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  text-align: left;
   font-size: 28px;
   color: #00eaff;
   text-shadow: 0 0 20px #00eaff, 0 0 40px #00eaff;
   font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: center;
 }
 
 /* ===================================================================
-   Banner Section (Optional - if not used, pode ser removido)
+   Banner Section (Optional - not used in this version)
    =================================================================== */
 .banner-section {
   margin-top: 20px;
