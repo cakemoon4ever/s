@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "The blockchain mystery deepens with $MOON.",
       "Neon dreams and digital secrets: that's $MOON.",
       "Embrace the unknown with Cakemoon.",
-      "$MOON shines in the heart of the BSC.",
+      "$MOON shines in the heart of BSC.",
       "Every flicker hides a riddle...",
       "Can you decipher the enigma of the night?",
       "Shadows and neon: a puzzle without a solution.",
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* Initialization of all modules */
-  // Se desejar remover banner rotativo, remova as funções relacionadas ao banner
+  // Se desejar remover banner rotativo, remova as funções relacionadas e a chamada de setInterval abaixo.
   // setInterval(rotateBanner, 7000);
   fetchCryptoPrices();
   setInterval(fetchCryptoPrices, 60000);
