@@ -573,23 +573,27 @@ main {
 .buy-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centraliza os itens horizontalmente */
-  flex-direction: column; /* Organiza os itens verticalmente */
-  gap: 15px; /* Espaçamento entre a imagem e o texto */
-  text-align: center; /* Garante que o texto fique alinhado */
+  justify-content: space-between; /* Mantém texto e imagem alinhados */
+  gap: 15px; /* Espaçamento entre o texto e a imagem */
+  text-align: left; /* Alinha o texto à esquerda */
 }
 
 .maestro-logo {
-  width: 60px; /* Reduz o tamanho da imagem */
+  width: 80px; /* Ajuste conforme necessário */
   height: auto;
 }
 
-.button-highlightgame {
-  display: inline-block; /* Mantém a largura do botão proporcional ao conteúdo */
-  margin-top: 15px; /* Adiciona espaço entre o botão e o texto */
-  text-align: center;
+.button-container {
+  display: flex;
+  justify-content: center; /* Centraliza o botão horizontalmente */
+  width: 100%;
+  margin-top: 15px;
 }
 
+.button-highlightgame {
+  display: inline-block;
+  text-align: center;
+}
 
 /* ===================================================================
    Social Media Icons (Above Footer)
