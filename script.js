@@ -1,52 +1,10 @@
 // Espera o DOM estar carregado antes de iniciar
 document.addEventListener("DOMContentLoaded", () => {
-  /* Banner Rotation Script */
-  let bannerIndex = 0;
-  const banners = [
-    { src: "https://token4fun.github.io/babysherk/banner1.gif", link: "https://sherkfun.io/" },
-    { src: "https://sherkfuntoken.github.io/site/pongbanner.gif", link: "https://sherkfuntoken.github.io/site/pong2.html" },
-    { src: "https://token4fun.github.io/babysherk/banner3.gif", link: "https://t.me/SherkGameBot" },
-    { src: "https://token4fun.github.io/babysherk/banner5.gif", link: "https://t.me/SherkFunCommunity" },
-    { src: "https://token4fun.github.io/babysherk/banner6.gif", link: "https://t.me/SherkFunCommunity/1529" },
-    { src: "https://sherkfuntoken.github.io/site/banner7.gif", link: "https://www.youtube.com/@SherkFunToken" }
-  ];
-
-  function rotateBanner() {
-    const bannerElement = document.getElementById("banner");
-    const bannerLink = document.getElementById("banner-link");
-    if (!bannerElement || !bannerLink) return;
-    bannerElement.style.opacity = "0";
-    setTimeout(() => {
-      bannerIndex = (bannerIndex + 1) % banners.length;
-      bannerElement.src = banners[bannerIndex].src;
-      bannerLink.href = banners[bannerIndex].link;
-      bannerElement.style.opacity = "1";
-    }, 500);
-  }
-
-  function prevBanner() {
-    const bannerElement = document.getElementById("banner");
-    const bannerLink = document.getElementById("banner-link");
-    if (!bannerElement || !bannerLink) return;
-    bannerIndex = (bannerIndex - 1 + banners.length) % banners.length;
-    bannerElement.src = banners[bannerIndex].src;
-    bannerLink.href = banners[bannerIndex].link;
-  }
-
-  function nextBanner() {
-    const bannerElement = document.getElementById("banner");
-    const bannerLink = document.getElementById("banner-link");
-    if (!bannerElement || !bannerLink) return;
-    bannerIndex = (bannerIndex + 1) % banners.length;
-    bannerElement.src = banners[bannerIndex].src;
-    bannerLink.href = banners[bannerIndex].link;
-  }
-
   /* Crypto Prices Ticker */
   async function fetchCryptoPrices() {
     try {
       const response = await fetch(
-        "https://api.coingecko.com/api/v3/simple/price?ids=sherk,bitcoin,ethereum,binancecoin,solana&vs_currencies=usd&include_24hr_change=true"
+        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana&vs_currencies=usd&include_24hr_change=true"
       );
       if (!response.ok) throw new Error("Failed to fetch prices.");
       const data = await response.json();
@@ -66,31 +24,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* Dynamic Content */
-
   function getRandomFirstSection() {
     const versions = [
       {
-        title: "Introducing the Community Favorite: Sherk Fun Token ($SFT)",
+        title: "Introducing the Community Favorite: Cakemoon ($MOON)",
         content: `
-          <p>What started as a test token on Solana by the SherkFun.io team has blossomed into a cherished community project. Today, $SFT is the flagship token of SherkFun.io with unique features that others only aspire to.</p><br>
-          <p>With tools like SherkFunBuyBot operating flawlessly, get ready for the upcoming SherkSnipe&Buy Bot—crafted for unmatched speed and efficiency.</p><br>
+          <p>What started as a test token on the Binance Smart Chain by the Cakemoon team has blossomed into a cherished community project. Today, $MOON is the flagship token with rewards in <strong>$Cake 4life</strong> and innovative tokenomics.</p><br>
+          <p>With a staked treasury and daily buybacks, our system ensures sustainable growth and rewards for holders.</p><br>
           <p>Join the revolution and be part of this incredible movement!</p>
         `
       },
       {
-        title: "Discover the Sherk Fun Token ($SFT) Revolution",
+        title: "Discover the Cakemoon ($MOON) Revolution",
         content: `
-          <p>The journey began with a test token on Solana and quickly became a community favorite. Today, $SFT is the flagship token of SherkFun.io, offering innovative features beyond compare.</p><br>
-          <p>With SherkFunBuyBot active and the SherkSnipe&Buy Bot on the horizon, $SFT is reshaping blockchain interaction.</p><br>
+          <p>The journey began with a test token on BSC and quickly became a community favorite. Today, $MOON leads the way with a unique rewards system in $Cake 4life and cutting-edge tokenomics.</p><br>
+          <p>With daily buybacks and a staked treasury, Cakemoon is reshaping blockchain interaction.</p><br>
           <p>Be a part of this revolution!</p>
         `
       },
       {
-        title: "Get to Know the Sherk Fun Token ($SFT)",
+        title: "Get to Know Cakemoon ($MOON)",
         content: `
-          <p>$SFT evolved from a simple test token into a beloved flagship project on SherkFun.io. It offers features that outshine the rest.</p><br>
-          <p>With SherkFunBuyBot in action and SherkSnipe&Buy Bot on its way, token purchases become faster and smarter.</p><br>
-          <p>Join the revolution now!</p>
+          <p>Cakemoon evolved from a simple test token into a beloved flagship project on BSC. It offers innovative tokenomics, daily rewards in $Cake, and sustainable growth.</p><br>
+          <p>Join us and experience a token that rewards you for life!</p>
         `
       }
     ];
@@ -102,29 +58,29 @@ document.addEventListener("DOMContentLoaded", () => {
   function getRandomSecondSection() {
     const versions = [
       {
-        title: "Ready to Join the $SFT Revolution? 🚀",
+        title: "Ready to Join the $MOON Revolution? 🚀",
         content: `
-          <p>Step into the future with $SFT—the token that’s taking Solana by storm! Powered by Sherk.fun, $SFT is a game-changer for community-driven projects. With SherkFunBuyBot active and SherkSnipe&Buy Bot on the horizon, experience a new era in crypto.</p>
-          <a href="https://sherkfun.io/token/6wY93bkRSk5KagCGTHrjLPCpbMWEPQGU9wrpsZ8tyftL" class="button-highlightgame">Buy $SFT Now</a>
-          <a href="https://t.me/SherkFunCommunity" class="button">Join Telegram</a>
+          <p>Step into the future with $MOON—the token that’s taking the BSC by storm! Powered by innovation, Cakemoon delivers rewards in $Cake 4life along with unmatched tokenomics.</p>
+          <a href="#" class="button-highlightgame">Buy $MOON Now</a>
+          <a href="https://t.me/cakemoon" class="button" target="_blank">Join Telegram</a>
           <p>Join early to unlock exclusive rewards—the future of crypto is here!</p>
         `
       },
       {
         title: "Be Part of the Neon Wave 🌟",
         content: `
-          <p>$SFT is more than a token—it’s a movement. Embrace advanced trading tools and a community-driven ethos. Don’t miss this neon revolution!</p>
-          <a href="https://sherkfun.io/token/6wY93bkRSk5KagCGTHrjLPCpbMWEPQGU9wrpsZ8tyftL" class="button-highlightgame">Buy $SFT Now</a>
-          <a href="https://t.me/SherkFunCommunity" class="button">Join Telegram</a>
-          <p>Unlock exclusive benefits and be a key player in the $SFT movement!</p>
+          <p>$MOON is more than a token—it’s a movement. Embrace advanced trading tools and a community-driven ethos. Experience rewards in $Cake 4life and be part of this neon revolution!</p>
+          <a href="#" class="button-highlightgame">Buy $MOON Now</a>
+          <a href="https://t.me/cakemoon" class="button" target="_blank">Join Telegram</a>
+          <p>Unlock exclusive benefits and be a key player in the Cakemoon movement!</p>
         `
       },
       {
-        title: "Experience the Neon Future with $SFT",
+        title: "Experience the Neon Future with $MOON",
         content: `
-          <p>Unlock a world of possibilities with $SFT. Enjoy exclusive tools and a secure, community-driven platform that sets the crypto standard.</p>
-          <a href="https://sherkfun.io/token/6wY93bkRSk5KagCGTHrjLPCpbMWEPQGU9wrpsZ8tyftL" class="button-highlightgame">Buy $SFT Now</a>
-          <a href="https://t.me/SherkFunCommunity" class="button">Join Telegram</a>
+          <p>Unlock a world of possibilities with $MOON. Enjoy exclusive tools, sustainable rewards in $Cake 4life, and a secure, community-driven platform that sets the crypto standard.</p>
+          <a href="#" class="button-highlightgame">Buy $MOON Now</a>
+          <a href="https://t.me/cakemoon" class="button" target="_blank">Join Telegram</a>
           <p>Embark on the most exciting crypto revolution—your journey starts now!</p>
         `
       }
@@ -139,21 +95,21 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         title: "Giveaway Announcement",
         content: `
-          <p>The exclusive $SFT Giveaway kicks off once the token bonds to Raydium! 0.5% (5M) of the supply will find a new holder.<br>
+          <p>The exclusive Cakemoon Giveaway kicks off once the token bonds to Raydium! 0.5% (5M) of the supply will find a new holder.<br>
           Every purchase over $50 counts, and winners must hold tokens for at least 48 hours.</p>
         `
       },
       {
         title: "Giveaway Announcement",
         content: `
-          <p>After bonding $SFT to Raydium, an exclusive Giveaway will be sponsored! 0.5% (5M) of the supply goes to a new holder.<br>
+          <p>After bonding $MOON to Raydium, an exclusive Giveaway will be sponsored! 0.5% (5M) of the supply goes to a new holder.<br>
           Purchases over $50 count—hold your tokens for 48 hours to be eligible.</p>
         `
       },
       {
         title: "Giveaway Announcement",
         content: `
-          <p>Get ready for an exciting Giveaway once $SFT bonds to Raydium! 0.5% (5M) of the supply is up for grabs.<br>
+          <p>Get ready for an exciting Giveaway once $MOON bonds to Raydium! 0.5% (5M) of the supply is up for grabs.<br>
           All purchases over $50 qualify; remember to hold your tokens for 48 hours to win.</p>
         `
       }
@@ -186,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
       el.dataset.vx = (Math.random() * 4 - 2).toFixed(2);
       el.dataset.vy = (Math.random() * 4 - 2).toFixed(2);
     });
-
     function animate() {
       elements.forEach(el => {
         let vx = parseFloat(el.dataset.vx);
@@ -218,7 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const contactModal = document.getElementById("contactModal");
     const contactModalClose = document.getElementById("contactModalClose");
     const countdownElem = document.getElementById("contactCountdown");
-
     contactButton.addEventListener("click", () => {
       contactModal.style.display = "block";
       let count = 3;
@@ -233,11 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }, 1000);
     });
-
     contactModalClose.addEventListener("click", () => {
       contactModal.style.display = "none";
     });
-
     window.addEventListener("click", (e) => {
       if (e.target === contactModal) {
         contactModal.style.display = "none";
@@ -250,18 +202,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const enigmaElement = document.getElementById("enigma");
     const enigmaModal = document.getElementById("enigmaModal");
     const enigmaModalClose = document.getElementById("enigmaModalClose");
-
     enigmaElement.addEventListener("click", () => {
       enigmaModal.style.display = "block";
       updateEnigmaModalText();
       enigmaModal.dataset.interval = setInterval(updateEnigmaModalText, 3000);
     });
-
     enigmaModalClose.addEventListener("click", () => {
       enigmaModal.style.display = "none";
       clearInterval(enigmaModal.dataset.interval);
     });
-
     window.addEventListener("click", (e) => {
       if (e.target === enigmaModal) {
         enigmaModal.style.display = "none";
@@ -270,44 +219,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* Update Enigma Modal Text with dynamic phrases about $SFT and mystery */
+  /* Update Enigma Modal Text with dynamic phrases about $MOON and mystery */
   function updateEnigmaModalText() {
     const phrases = [
-      "Every moment, Sherk Fun Token unveils a new secret...",
-      "Unlock the neon mystery with $SFT.",
-      "Step into the future: Sherk Fun awaits.",
-      "In the electric glow, $SFT sparks innovation.",
-      "Discover the vibrant pulse of Sherk Fun Token.",
-      "Sherk Fun Token: where crypto meets enigma.",
-      "The blockchain mystery deepens with $SFT.",
-      "Neon dreams and digital secrets: that's $SFT.",
-      "Embrace the unknown with Sherk Fun Token.",
-      "$SFT shines in the heart of the metaverse.",
+      "Every moment, Cakemoon unveils a new secret...",
+      "Unlock the neon mystery with $MOON.",
+      "Step into the future: Cakemoon awaits.",
+      "In the electric glow, $MOON sparks innovation.",
+      "Discover the vibrant pulse of Cakemoon.",
+      "Cakemoon: where crypto meets enigma.",
+      "The blockchain mystery deepens with $MOON.",
+      "Neon dreams and digital secrets: that's $MOON.",
+      "Embrace the unknown with Cakemoon.",
+      "$MOON shines in the heart of the BSC.",
       "Every flicker hides a riddle...",
       "Can you decipher the enigma of the night?",
       "Shadows and neon: a puzzle without a solution.",
       "The night whispers secrets beyond the ordinary.",
       "In the dance of light and darkness, mysteries abound.",
-      "Dive deep into the digital enigma that is $SFT.",
-      "A universe of secrets awaits within Sherk Fun Token.",
+      "Dive deep into the digital enigma that is Cakemoon.",
+      "A universe of secrets awaits within Cakemoon.",
       "Every byte hides a brilliant mystery.",
-      "Neon lights illuminate the path to $SFT.",
+      "Neon lights illuminate the path to $MOON.",
       "Unlock the futuristic code, one glow at a time.",
-      "Where crypto and curiosity collide: $SFT.",
+      "Where crypto and curiosity collide: $MOON.",
       "In the realm of neon, every moment is a revelation.",
-      "Follow the luminous trail of Sherk Fun Token.",
-      "Mystery dances in every pixel of $SFT.",
+      "Follow the luminous trail of Cakemoon.",
+      "Mystery dances in every pixel of $MOON.",
       "Let your mind wander through the neon labyrinth.",
-      "Every spark of $SFT ignites a thousand questions.",
-      "Secrets flow like electric currents through $SFT.",
-      "Embrace the chaos of the digital cosmos with $SFT.",
-      "The future is written in neon and coded in $SFT.",
+      "Every spark of $MOON ignites a thousand questions.",
+      "Secrets flow like electric currents through $MOON.",
+      "Embrace the chaos of the digital cosmos with $MOON.",
+      "The future is written in neon and coded in $MOON.",
       "Each flash of light reveals a new puzzle.",
-      "Step beyond the ordinary—$SFT awaits your discovery.",
-      "The neon enigma of Sherk Fun Token beckons the brave.",
+      "Step beyond the ordinary—$MOON awaits your discovery.",
+      "The neon enigma of Cakemoon beckons the brave.",
       "Mysteries unfold in the rhythm of digital beats.",
-      "Let the neon night guide your quest for truth in $SFT.",
-      "In every shadow, a secret of $SFT is born."
+      "Let the neon night guide your quest for truth in $MOON.",
+      "In every shadow, a secret of $MOON is born."
     ];
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     document.getElementById("enigmaModalText").textContent = randomPhrase;
@@ -319,22 +268,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("adminModal");
     const closeBtn = document.getElementById("modalClose");
     const adminForm = document.getElementById("adminForm");
-    
     adminBtn.addEventListener("click", (e) => {
       e.preventDefault();
       modal.style.display = "block";
     });
-    
     closeBtn.addEventListener("click", () => {
       modal.style.display = "none";
     });
-    
     window.addEventListener("click", (e) => {
       if (e.target === modal) {
         modal.style.display = "none";
       }
     });
-    
     adminForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const username = document.getElementById("adminUser").value;
@@ -367,51 +312,21 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener('click', (event) => {
       // Se o clique for em um link dentro do card, não altera o scroll
       if (event.target.tagName.toLowerCase() === 'a') return;
-      
       const cardRect = card.getBoundingClientRect();
       const clickX = event.clientX - cardRect.left;
       const halfWidth = cardRect.width / 2;
-      // Define o deslocamento desejado (em pixels)
       const scrollOffset = 150;
       if (clickX < halfWidth) {
-        // Clique na metade esquerda: rolar para a esquerda
         miniCardContainer.scrollBy({ left: -scrollOffset, behavior: 'smooth' });
       } else {
-        // Clique na metade direita: rolar para a direita
         miniCardContainer.scrollBy({ left: scrollOffset, behavior: 'smooth' });
       }
     });
   });
 
-  /* Swiper Initialization for the Team Section */
-  const swiper = new Swiper(".swiper", {
-    slidesPerView: 5,
-    spaceBetween: 0,
-    centeredSlides: true,
-    loop: true,
-    simulateTouch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
-
-  // Adjusts the height of the slides to maintain a 16:9 ratio
-  const calculateHeight = () => {
-    const swiperSlideElements = Array.from(document.querySelectorAll('.swiper .swiper-slide'));
-    if (!swiperSlideElements.length) return;
-    const width = swiperSlideElements[0].getBoundingClientRect().width;
-    const height = Math.round(width / (16 / 9));
-    swiperSlideElements.forEach(element => {
-      element.style.height = `${height}px`;
-    });
-  };
-
-  calculateHeight();
-  window.addEventListener('resize', calculateHeight);
-
   /* Initialization of all modules */
-  setInterval(rotateBanner, 7000);
+  // Se desejar remover banner rotativo, remova as funções relacionadas ao banner
+  // setInterval(rotateBanner, 7000);
   fetchCryptoPrices();
   setInterval(fetchCryptoPrices, 60000);
   getRandomFirstSection();
