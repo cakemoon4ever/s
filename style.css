@@ -184,18 +184,24 @@ body::before {
    Top Banner
    =================================================================== */
 #topBanner {
-  width: 80%;
-  overflow: hidden;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente se necessário */
+  position: absolute; /* Mantém no topo da página */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Mantém sobre os outros elementos */
+  background-color: #000; /* Opcional: adiciona um fundo caso necessário */
 }
 
 #topBanner img {
+  width: 80%; /* Mantém o tamanho da imagem em 80% da largura da tela */
   max-width: 80%;
-  height: auto;
+  height: auto; /* Mantém a proporção da imagem */
   display: block;
 }
+
 
 /* ===================================================================
    Content Boxes & Neon Headings (No Scaling Animation)
