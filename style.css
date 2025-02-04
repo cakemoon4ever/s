@@ -32,7 +32,8 @@ body::before {
 /* ===================================================================
    Crypto Ticker with Bold Neon Blue
    =================================================================== */
-.crypto-ticker {
+/* Crypto Ticker - Agora Fixo no Topo */
+#crypto-ticker {
   position: fixed;
   top: 0;
   width: 100%;
@@ -183,23 +184,29 @@ body::before {
 /* ===================================================================
    Top Banner
    =================================================================== */
+/* Top Banner - Agora Logo Abaixo do Crypto Ticker */
 #topBanner {
   width: 100%;
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente se necessário */
-  position: absolute; /* Mantém no topo da página */
-  top: 0;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50px; /* Ajuste para ficar logo abaixo do ticker */
   left: 0;
-  z-index: 1000; /* Mantém sobre os outros elementos */
-  background-color: #000; /* Opcional: adiciona um fundo caso necessário */
+  z-index: 999; /* Um nível abaixo do ticker */
+  background-color: #000;
 }
 
 #topBanner img {
-  width: 80%; /* Mantém o tamanho da imagem em 80% da largura da tela */
+  width: 80%;
   max-width: 80%;
-  height: auto; /* Mantém a proporção da imagem */
+  height: auto;
   display: block;
+}
+
+/* Adiciona Espaçamento ao Conteúdo Principal */
+body {
+  padding-top: 120px; /* Ajuste para evitar sobreposição do banner e ticker */
 }
 
 
