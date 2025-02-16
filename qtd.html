@@ -21,29 +21,31 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // URL alvo do BscScan e proxy para contornar problemas de CORS.
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+      // URL alvo do BscScan
       const targetUrl = "https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278?a=0x000000000000000000000000000000000000dEaD";
+      // Usando o AllOrigins para contornar CORS
+      const proxyUrl = "https://api.allorigins.hexocode.repl.co/get?disableCache=true&url=" + encodeURIComponent(targetUrl);
       
-      fetch(proxyUrl + targetUrl)
+      fetch(proxyUrl)
         .then(response => {
           if (!response.ok) {
             throw new Error("Erro na requisição: " + response.status);
           }
-          return response.text();
+          return response.json();
         })
-        .then(htmlString => {
-          // Converter o HTML retornado em um objeto DOM
+        .then(data => {
+          // O AllOrigins retorna um JSON com o HTML dentro da propriedade "contents"
+          const htmlString = data.contents;
           const parser = new DOMParser();
           const doc = parser.parseFromString(htmlString, "text/html");
           
-          // Tenta localizar a tabela de transações (buscando o primeiro <tbody> encontrado)
+          // Localiza a tabela de transações (buscando o primeiro <tbody> encontrado)
           const tbody = doc.querySelector("table tbody");
           if (!tbody) {
             throw new Error("Tabela de transações não encontrada.");
           }
           
-          // Seleciona a primeira linha da tabela (transação mais recente)
+          // Seleciona a primeira linha (transação mais recente)
           const firstRow = tbody.querySelector("tr");
           if (!firstRow) {
             throw new Error("Nenhuma transação encontrada.");
@@ -56,14 +58,12 @@
           }
           const transactionHash = hashLink.textContent.trim();
           
-          // Extrai a data da transação:
-          // Primeiro, tenta encontrar um <span> com o atributo data-bs-title dentro de um <td> com a classe "showDate"
+          // Extrai a data da transação
           let dateElement = firstRow.querySelector(".showDate span[data-bs-title]");
           let transactionDate = "";
           if (dateElement) {
             transactionDate = dateElement.getAttribute("data-bs-title").trim();
           } else {
-            // Se não encontrar, tenta extrair o texto do <span> interno
             dateElement = firstRow.querySelector(".showDate span");
             if (dateElement) {
               transactionDate = dateElement.textContent.trim();
@@ -79,7 +79,7 @@
           `;
         })
         .catch(error => {
-          // Em caso de erro, exibe uma mensagem apropriada
+          // Em caso de erro, exibe a mensagem apropriada
           document.getElementById("result").innerHTML = `<p class="error">Erro: ${error.message}</p>`;
         });
     });
