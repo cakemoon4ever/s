@@ -471,7 +471,7 @@ async function fetchCryptoPrices() {
           // Exibe a informação de "Age" sem usar elementos de bloco
           document.getElementById('result').innerHTML = ageString;
         } else {
-          document.getElementById('result').innerHTML = 'Nenhuma transação encontrada ou resposta inválida da API.';
+          document.getElementById('result').innerHTML = 'Error reading burn hash. [F5] to load page again.';
         }
       } catch (error) {
         document.getElementById('result').innerHTML = 'Erro: ' + error.message;
