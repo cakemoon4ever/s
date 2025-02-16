@@ -428,7 +428,7 @@ async function fetchCryptoPrices() {
     });
 
 // SCRIPT para ver a data da ultima queima
-async function fetchLastTxAge() {
+    async function fetchLastTxAge() {
       // Substitua pela sua própria chave de API do BscScan
       const API_KEY = 'NABPG1J8DPTD6NMNU4WZIT4GCB258666UQ';
       const contractAddress = '0x893535ED1b5C6969E62a10bABfED4F5fF8373278';
@@ -449,17 +449,32 @@ async function fetchLastTxAge() {
           const timeStamp = parseInt(lastTx.timeStamp, 10); // Unix time em segundos
           const nowSeconds = Math.floor(Date.now() / 1000);
           const diffSeconds = nowSeconds - timeStamp;
-          const diffDays = Math.floor(diffSeconds / (3600 * 24));
-          const ageString = `${diffDays} days ago`;
 
-          // Exibe apenas a informação de "Age"
-          //document.getElementById('result').innerHTML = `<p>${ageString}</p>`;
+          // Calcula dias e minutos
+          const diffDays = Math.floor(diffSeconds / (3600 * 24));
+          const remainingSeconds = diffSeconds % (3600 * 24);
+          const diffMinutes = Math.floor(remainingSeconds / 60);
+          
+          // Monta a string de idade
+          let ageString = "";
+          if (diffDays > 0) {
+            ageString = `${diffDays} days`;
+            if (diffMinutes > 0) {
+              ageString += ` and ${diffMinutes} minutes ago`;
+            } else {
+              ageString += ` ago`;
+            }
+          } else {
+            ageString = `${diffMinutes} minutes ago`;
+          }
+
+          // Exibe a informação de "Age" sem usar elementos de bloco
           document.getElementById('result').innerHTML = ageString;
         } else {
-          document.getElementById('result').innerHTML = `<p class="error">Nenhuma transação encontrada ou resposta inválida da API.</p>`;
+          document.getElementById('result').innerHTML = 'Nenhuma transação encontrada ou resposta inválida da API.';
         }
       } catch (error) {
-        document.getElementById('result').innerHTML = `<p class="error">Erro: ${error.message}</p>`;
+        document.getElementById('result').innerHTML = 'Erro: ' + error.message;
       }
     }
 
