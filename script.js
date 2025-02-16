@@ -453,7 +453,8 @@ async function fetchLastTxAge() {
           const ageString = `${diffDays} days ago`;
 
           // Exibe apenas a informação de "Age"
-          document.getElementById('result').innerHTML = `<p>${ageString}</p>`;
+          //document.getElementById('result').innerHTML = `<p>${ageString}</p>`;
+          document.getElementById('result').innerHTML = ageString;
         } else {
           document.getElementById('result').innerHTML = `<p class="error">Nenhuma transação encontrada ou resposta inválida da API.</p>`;
         }
