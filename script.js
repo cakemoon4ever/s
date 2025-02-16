@@ -460,12 +460,12 @@ async function fetchCryptoPrices() {
           if (diffDays > 0) {
             ageString = `${diffDays} days`;
             if (diffMinutes > 0) {
-              ageString += ` and ${diffMinutes} minutes ago`;
+              ageString += ` and ${diffMinutes} min ago`;
             } else {
               ageString += ` ago`;
             }
           } else {
-            ageString = `${diffMinutes} minutes ago`;
+            ageString = `${diffMinutes} min ago`;
           }
 
           // Exibe a informação de "Age" sem usar elementos de bloco
