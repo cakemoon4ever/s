@@ -460,7 +460,7 @@ async function fetchCryptoPrices() {
           if (diffDays > 0) {
             ageString = `${diffDays} days`;
             if (diffMinutes > 0) {
-              ageString += ` and ${diffMinutes} min ago`;
+              ageString += ` and ${diffMinutes} minuntes ago`;
             } else {
               ageString += ` ago`;
             }
