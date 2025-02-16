@@ -373,3 +373,56 @@ async function fetchCryptoPrices() {
   initElementMovement();
   console.log("Futuristic site loaded!");
 });
+
+/* Initialization a busca da carteira queimada */
+// Substitua pela sua API Key do BscScan
+    const apiKey = 'NABPG1J8DPTD6NMNU4WZIT4GCB258666UQ';
+
+    // Endereço do contrato do token e da carteira (no caso, a "dead address")
+    const contractAddress = '0x893535ED1b5C6969E62a10bABfED4F5fF8373278';
+    const walletAddress   = '0x000000000000000000000000000000000000dead';
+
+    // URLs da API para buscar o saldo e o total supply
+    const apiURLBalance = `https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${contractAddress}&address=${walletAddress}&tag=latest&apikey=${apiKey}`;
+    const apiURLSupply  = `https://api.bscscan.com/api?module=stats&action=tokensupply&contractaddress=${contractAddress}&apikey=${apiKey}`;
+
+    // Faz as duas requisições simultaneamente
+    Promise.all([
+      fetch(apiURLBalance).then(response => response.json()),
+      fetch(apiURLSupply).then(response => response.json())
+    ])
+    .then(([balanceData, supplyData]) => {
+      if (balanceData.status === "1" && supplyData.status === "1") {
+        // O token possui 9 decimais; portanto os valores retornados estão na menor unidade.
+        // Dividindo por 1e9 obtemos o valor "legível".
+        const rawBalance = balanceData.result;
+        const rawSupply  = supplyData.result;
+
+        const balance = parseFloat(rawBalance) / 1e9;
+        const supply  = parseFloat(rawSupply) / 1e9;
+
+        // Formata o saldo para exibir em inglês com duas casas decimais.
+        const formattedBalance = balance.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+        // Calcula o percentual que o saldo representa do total supply
+        const percentage = (balance / supply) * 100;
+        const formattedPercentage = percentage.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+
+        // Exibe o resultado: saldo formatado e percentual
+        document.getElementById('balance').innerText =
+          `${formattedBalance} tokens (${formattedPercentage}% do total supply)`;
+      } else {
+        // Exibe a mensagem de erro caso a API retorne algum problema
+        document.getElementById('balance').innerText =
+          'Erro: ' + (balanceData.message || supplyData.message);
+      }
+    })
+    .catch(error => {
+      document.getElementById('balance').innerText = 'Erro na requisição: ' + error;
+    });
