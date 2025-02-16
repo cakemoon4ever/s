@@ -2,15 +2,15 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Capturar Age da Transação Mais Recente</title>
+  <title>Teste de Colunas BscScan</title>
 </head>
 <body>
-  <h1>Age da Transação Mais Recentevvv</h1>
-  <p id="age">Carregando...</p>
+  <h1>Teste de Colunas da Transação Mais Recente</h1>
+  <pre id="info">Carregando...</pre>
 
   <script>
-    // Endpoint AJAX que BscScan usa para carregar as transações (página 1)
-    // Ajuste conforme necessário (contractAddress, a, p, etc.).
+    // Endpoint AJAX usado pelo BscScan para carregar a tabela de transações.
+    // Ajuste se necessário (p=1 => página 1, a=..., contractAddress=...).
     const realUrl = 
       'https://bscscan.com/token/generic-token-transfers2'
       + '?contractAddress=0x893535ED1b5C6969E62a10bABfED4F5fF8373278'
@@ -31,45 +31,41 @@
         return response.text();
       })
       .then(html => {
-        // Cria um DOM virtual para analisar o HTML da TABELA retornada
+        // Converte a string HTML em um DOM virtual
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
 
-        // A tabela costuma ter a classe "table-hover"
-        // e a primeira linha do <tbody> representa a transação mais recente.
-        const rows = doc.querySelectorAll('table.table-hover tbody tr');
-        if (rows.length === 0) {
-          document.getElementById('age').innerText =
-            'Nenhuma transação encontrada (ou estrutura diferente).';
+        // Localiza o <tbody> da tabela de transações
+        const tableBody = doc.querySelector('table.table-hover tbody');
+        if (!tableBody) {
+          document.getElementById('info').innerText =
+            'Não foi possível encontrar a tabela de transações.';
           return;
         }
 
-        // Pega a primeira linha (mais recente)
+        // Seleciona todas as linhas (tr)
+        const rows = tableBody.querySelectorAll('tr');
+        if (rows.length === 0) {
+          document.getElementById('info').innerText =
+            'Nenhuma transação encontrada.';
+          return;
+        }
+
+        // Pega a primeira linha (transação mais recente)
         const firstRow = rows[0];
         const cells = firstRow.querySelectorAll('td');
-        // Geralmente a ordem é:
-        // 0: Txn Hash
-        // 1: Method
-        // 2: Block
-        // 3: Age
-        // 4: From
-        // 5: Out
-        // 6: To
-        // 7: Value
-        // 8: Token
-        // Ajuste se estiver em outra coluna.
-        const ageCell = cells[3];
-        if (!ageCell) {
-          document.getElementById('age').innerText =
-            'Coluna "Age" não encontrada na primeira linha.';
-          return;
+
+        // Monta uma string com cada célula e seu índice
+        let result = 'Número de colunas: ' + cells.length + '\n\n';
+        for (let i = 0; i < cells.length; i++) {
+          const text = cells[i].innerText.trim();
+          result += `Coluna ${i}: ${text}\n`;
         }
 
-        const ageText = ageCell.innerText.trim();
-        document.getElementById('age').innerText = ageText;
+        document.getElementById('info').innerText = result;
       })
       .catch(error => {
-        document.getElementById('age').innerText = "Erro: " + error;
+        document.getElementById('info').innerText = "Erro: " + error;
       });
   </script>
 </body>
