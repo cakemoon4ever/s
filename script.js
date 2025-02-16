@@ -416,7 +416,7 @@ async function fetchCryptoPrices() {
 
         // Exibe o resultado: saldo formatado e percentual
         document.getElementById('balance').innerText =
-          `${formattedBalance} tokens (${formattedPercentage}% do total supply)`;
+          `${formattedBalance} tokens (${formattedPercentage}%)`;
       } else {
         // Exibe a mensagem de erro caso a API retorne algum problema
         document.getElementById('balance').innerText =
