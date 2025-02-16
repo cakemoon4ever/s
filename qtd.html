@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Última Transação</title>
+  <title>Consulta BscScan - Última Transação</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,27 +15,25 @@
   </style>
 </head>
 <body>
-  <h1> Última Transação</h1>
+  <h1>Consulta de Última Transação</h1>
   <p>Buscando a última transação do contrato na carteira <code>dead</code>...</p>
   <div id="result"></div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // URL alvo do BscScan
+      // Usando o thingproxy para contornar CORS
+      const proxyUrl = "https://thingproxy.freeboard.io/fetch/";
       const targetUrl = "https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278?a=0x000000000000000000000000000000000000dEaD";
-      // Usando o AllOrigins para contornar CORS
-      const proxyUrl = "https://api.allorigins.hexocode.repl.co/get?disableCache=true&url=" + encodeURIComponent(targetUrl);
       
-      fetch(proxyUrl)
+      fetch(proxyUrl + targetUrl)
         .then(response => {
           if (!response.ok) {
             throw new Error("Erro na requisição: " + response.status);
           }
-          return response.json();
+          return response.text();
         })
-        .then(data => {
-          // O AllOrigins retorna um JSON com o HTML dentro da propriedade "contents"
-          const htmlString = data.contents;
+        .then(htmlString => {
+          // Converter o HTML retornado em um objeto DOM
           const parser = new DOMParser();
           const doc = parser.parseFromString(htmlString, "text/html");
           
