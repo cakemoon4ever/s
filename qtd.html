@@ -1,72 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Teste de Colunas BscScan</title>
+  <title>Extrair Age da Transação Mais Recente</title>
 </head>
 <body>
-  <h1>Teste de Colunas da Transação Mais Recente</h1>
-  <pre id="info">Carregando...</pre>
+  <div id="result">Carregando...</div>
 
   <script>
-    // Endpoint AJAX usado pelo BscScan para carregar a tabela de transações.
-    // Ajuste se necessário (p=1 => página 1, a=..., contractAddress=...).
-    const realUrl = 
-      'https://bscscan.com/token/generic-token-transfers2'
-      + '?contractAddress=0x893535ED1b5C6969E62a10bABfED4F5fF8373278'
-      + '&mode='
-      + '&a=0x000000000000000000000000000000000000dead'
-      + '&sid='
-      + '&p=1';
-
-    // Usamos o proxy do cors-anywhere
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const fetchUrl = proxyUrl + realUrl;
-
-    fetch(fetchUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erro HTTP: ' + response.status);
-        }
-        return response.text();
-      })
-      .then(html => {
-        // Converte a string HTML em um DOM virtual
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-
-        // Localiza o <tbody> da tabela de transações
-        const tableBody = doc.querySelector('table.table-hover tbody');
-        if (!tableBody) {
-          document.getElementById('info').innerText =
-            'Não foi possível encontrar a tabela de transações.';
-          return;
-        }
-
-        // Seleciona todas as linhas (tr)
-        const rows = tableBody.querySelectorAll('tr');
-        if (rows.length === 0) {
-          document.getElementById('info').innerText =
-            'Nenhuma transação encontrada.';
-          return;
-        }
-
-        // Pega a primeira linha (transação mais recente)
-        const firstRow = rows[0];
-        const cells = firstRow.querySelectorAll('td');
-
-        // Monta uma string com cada célula e seu índice
-        let result = 'Número de colunas: ' + cells.length + '\n\n';
-        for (let i = 0; i < cells.length; i++) {
-          const text = cells[i].innerText.trim();
-          result += `Coluna ${i}: ${text}\n`;
-        }
-
-        document.getElementById('info').innerText = result;
-      })
-      .catch(error => {
-        document.getElementById('info').innerText = "Erro: " + error;
-      });
+    document.addEventListener("DOMContentLoaded", function() {
+      // Seleciona a primeira linha (transação mais recente) da tabela
+      var firstRow = document.querySelector("table tbody tr");
+      if (!firstRow) {
+        document.getElementById("result").innerText = "Nenhuma transação encontrada.";
+        return;
+      }
+      
+      // Procura o elemento <span> dentro do <td> com a classe "showAge"
+      var ageSpan = firstRow.querySelector("td.showAge span");
+      if (!ageSpan) {
+        document.getElementById("result").innerText = "Campo 'Age' não encontrado.";
+        return;
+      }
+      
+      // Extrai e exibe o texto (por exemplo, "452 days ago")
+      var ageText = ageSpan.textContent.trim();
+      document.getElementById("result").innerText = "Age da transação mais recente: " + ageText;
+    });
   </script>
 </body>
 </html>
