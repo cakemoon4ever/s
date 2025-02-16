@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Consulta BscScan - Última Transação</title>
+  <title>Última Transação</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,13 +15,13 @@
   </style>
 </head>
 <body>
-  <h1>Consulta de Última Transação</h1>
+  <h1>Última Transação</h1>
   <p>Buscando a última transação do contrato na carteira <code>dead</code>...</p>
   <div id="result"></div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Usando o thingproxy para contornar CORS
+      // Exemplo usando o 'thingproxy' (pode variar conforme disponibilidade)
       const proxyUrl = "https://thingproxy.freeboard.io/fetch/";
       const targetUrl = "https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278?a=0x000000000000000000000000000000000000dEaD";
       
@@ -49,14 +49,15 @@
             throw new Error("Nenhuma transação encontrada.");
           }
           
-          // Extrai o transaction hash (buscando o link cujo href inicia com "/tx/")
+          // (1) Extrai o Transaction Hash (buscando o link cujo href inicia com "/tx/")
           const hashLink = firstRow.querySelector('a[href^="/tx/"]');
           if (!hashLink) {
             throw new Error("Transaction hash não encontrada.");
           }
           const transactionHash = hashLink.textContent.trim();
           
-          // Extrai a data da transação
+          // (2) Extrai a Data completa da transação (opcional, se quiser)
+          //    Normalmente está em .showDate ou atributo data-bs-title
           let dateElement = firstRow.querySelector(".showDate span[data-bs-title]");
           let transactionDate = "";
           if (dateElement) {
@@ -66,14 +67,23 @@
             if (dateElement) {
               transactionDate = dateElement.textContent.trim();
             } else {
-              throw new Error("Data da transação não encontrada.");
+              transactionDate = "Data da transação não encontrada.";
             }
           }
-          
+
+          // (3) Extrai o texto da coluna "Age" (ex.: "452 days ago")
+          //    Geralmente, a coluna "Age" é a 4ª coluna <td> da <tr>.
+          const ageCell = firstRow.querySelector("td:nth-child(4)");
+          if (!ageCell) {
+            throw new Error("Coluna de 'Age' não encontrada.");
+          }
+          const ageText = ageCell.textContent.trim(); // Ex.: "452 days ago"
+
           // Exibe os dados extraídos na página
           document.getElementById("result").innerHTML = `
             <p><strong>Transaction Hash:</strong> ${transactionHash}</p>
-            <p><strong>Data da Transação:</strong> ${transactionDate}</p>
+            <p><strong>Data da Transação (Tooltip):</strong> ${transactionDate}</p>
+            <p><strong>Age (Coluna 'Age'):</strong> ${ageText}</p>
           `;
         })
         .catch(error => {
