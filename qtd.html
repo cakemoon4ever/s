@@ -12,39 +12,44 @@
     // URL da página do token no BscScan
     const tokenUrl = 'https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278#balances';
     
-    // Utiliza o AllOrigins para contornar problemas de CORS:
-    const proxyUrl = 'https://api.allorigins.hexocode.repl.co/get?disableCache=true&url=';
-    const fetchUrl = proxyUrl + encodeURIComponent(tokenUrl);
+    // Utiliza o proxy do ThingProxy para contornar problemas de CORS:
+    const proxyUrl = 'https://thingproxy.freeboard.io/fetch/';
+    const fetchUrl = proxyUrl + tokenUrl;
     
     fetch(fetchUrl)
-      .then(response => response.json())
-      .then(data => {
-        const htmlContent = data.contents;
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(htmlContent => {
         // Cria um objeto DOM a partir do HTML retornado
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, 'text/html');
 
-        // --- EXTRAÇÃO DO NÚMERO DE HOLDERS ---
-        // Essa parte depende da estrutura atual da página do BscScan.
-        // Por exemplo, se o número de Holders estiver em um elemento que contenha o texto "Holders"
-        // seguido pelo número, podemos procurar por esse padrão.
-        //
-        // Aqui, vamos procurar por todos os elementos e testar se o texto contém a palavra "Holders".
-        // Em seguida, usamos uma expressão regular para extrair a primeira sequência numérica encontrada.
-        let holdersText = null;
-        const allElements = doc.querySelectorAll('*');
-        allElements.forEach(el => {
-          if (el.textContent.includes('Holders')) {
-            // Exemplo de texto: "Holders 123,456" ou "Holders\n123,456"
-            const match = el.textContent.match(/[\d,]+/);
-            if (match) {
-              holdersText = match[0];
+        // Tenta localizar o número de Holders.
+        // A estrutura atual da página pode variar. Abaixo, tenta extrair a partir de um elemento com a classe "hash-tag text-truncate".
+        let holdersNumber = null;
+        const holderSpan = doc.querySelector('span.hash-tag.text-truncate');
+        if (holderSpan) {
+          holdersNumber = holderSpan.textContent.trim();
+        } else {
+          // Se não encontrar, busca por qualquer elemento que contenha o texto "Holders" e extraia o primeiro número encontrado.
+          const allElements = doc.querySelectorAll('*');
+          for (let el of allElements) {
+            if (el.textContent.includes('Holders')) {
+              const match = el.textContent.match(/[\d,]+/);
+              if (match) {
+                holdersNumber = match[0];
+                break;
+              }
             }
           }
-        });
+        }
         
-        if (holdersText) {
-          document.getElementById('holders').innerText = holdersText;
+        if (holdersNumber) {
+          document.getElementById('holders').innerText = holdersNumber;
         } else {
           document.getElementById('holders').innerText = 'Número de Holders não encontrado.';
         }
