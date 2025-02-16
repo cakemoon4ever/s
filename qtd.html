@@ -2,17 +2,17 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Age da Transação</title>
+  <title>Capturar Age da Transação Mais Recente</title>
 </head>
 <body>
-  <h1>Last burn: </h1>
+  <h1>Age da Transação Mais Recente</h1>
   <p id="age">Carregando...</p>
 
   <script>
-    // URL da página no BscScan (para o endereço especificado)
+    // URL da página do token + endereço "dead" no BscScan
     const tokenUrl = 'https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278?a=0x000000000000000000000000000000000000dead';
-    
-    // Usamos o proxy cors-anywhere (lembre-se de ativá-lo em https://cors-anywhere.herokuapp.com/corsdemo)
+
+    // Proxy do cors-anywhere (lembre-se de ativar em https://cors-anywhere.herokuapp.com/corsdemo)
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const fetchUrl = proxyUrl + tokenUrl;
 
@@ -28,23 +28,41 @@
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
 
-        // Seleciona a primeira linha da tabela de transações
-        const firstRow = doc.querySelector("table tbody tr");
+        // =========================================================
+        // 1) Localizar a tabela de transações BEP-20
+        //    Geralmente ela tem id="tokentxns" ou algo similar.
+        //    Se não encontrar, tente outro seletor, por exemplo:
+        //    doc.querySelector('table.table-hover')
+        // =========================================================
+        const transactionTable = doc.querySelector('table#tokentxns');
+        if (!transactionTable) {
+          document.getElementById('age').innerText =
+            'Não foi possível encontrar a tabela de transações.';
+          return;
+        }
+
+        // Seleciona a primeira linha (mais recente) do <tbody>
+        const firstRow = transactionTable.querySelector('tbody tr');
         if (!firstRow) {
-          document.getElementById('age').innerText = "Transação não encontrada.";
+          document.getElementById('age').innerText =
+            'Nenhuma transação encontrada.';
           return;
         }
 
-        // Obtém todas as células (<td>) da linha
-        const cells = firstRow.querySelectorAll("td");
-        // Supondo que a coluna "Age" seja a terceira (índice 2)
-        if (cells.length < 3) {
-          document.getElementById('age').innerText = "Estrutura da tabela não esperada.";
+        // Seleciona todas as células da linha
+        const cells = firstRow.querySelectorAll('td');
+        // Ajuste o índice conforme a posição real da coluna "Age"
+        // Em muitas tabelas do BscScan, a ordem é:
+        //   (0) Txn Hash, (1) Method, (2) Block, (3) Age, ...
+        // Se for esse o caso, ageCell = cells[3].
+        const ageCell = cells[3]; 
+        if (!ageCell) {
+          document.getElementById('age').innerText =
+            'Coluna "Age" não encontrada na primeira linha.';
           return;
         }
-        const ageCell = cells[2];
 
-        // Captura o texto da célula e exibe somente o valor da "Age"
+        // Extrai o texto (por ex. "4523 days ago")
         const ageText = ageCell.innerText.trim();
         document.getElementById('age').innerText = ageText;
       })
