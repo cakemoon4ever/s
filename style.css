@@ -654,3 +654,17 @@ main {
 /* ===================================================================
    End of CSS (Excluding Team Section)
    =================================================================== */
+    /* Classe para forçar exibição em linha */
+    .inline-item {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .inline-item strong,
+    .inline-item a {
+      display: inline;
+    }
+    /* Espaçamento entre elementos, se necessário */
+    .inline-item strong {
+      margin-right: 5px;
+    }
