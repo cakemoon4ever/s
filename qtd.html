@@ -2,29 +2,22 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Última Transaction Hash</title>
+  <title>Último Transaction Hash</title>
 </head>
 <body>
   <div id="result">Carregando...</div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Seleciona a primeira linha da tabela de transações
-      var firstRow = document.querySelector("table tbody tr");
-      if (!firstRow) {
-        document.getElementById("result").innerText = "Nenhuma transação encontrada.";
-        return;
-      }
-      
-      // A transação hash está na segunda célula (<td>) — usamos o seletor nth-child(2)
-      var txHashLink = firstRow.querySelector("td:nth-child(2) a.hash-tag");
-      if (!txHashLink) {
+      // Procura o primeiro link que possua href iniciando com "/tx/" dentro da tabela
+      var txLink = document.querySelector("table tbody tr a[href^='/tx/']");
+      if (txLink) {
+        // O texto exibido no link geralmente é o transaction hash
+        var txHash = txLink.textContent.trim();
+        document.getElementById("result").innerText = "Último Transaction Hash: " + txHash;
+      } else {
         document.getElementById("result").innerText = "Transaction Hash não encontrado.";
-        return;
       }
-      
-      var lastTxHash = txHashLink.innerText.trim();
-      document.getElementById("result").innerText = "Última Transaction Hash: " + lastTxHash;
     });
   </script>
 </body>
