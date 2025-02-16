@@ -426,3 +426,41 @@ async function fetchCryptoPrices() {
     .catch(error => {
       document.getElementById('balance').innerText = 'Erro na requisição: ' + error;
     });
+
+// SCRIPT para ver a data da ultima queima
+async function fetchLastTxAge() {
+      // Substitua pela sua própria chave de API do BscScan
+      const API_KEY = 'NABPG1J8DPTD6NMNU4WZIT4GCB258666UQ';
+      const contractAddress = '0x893535ED1b5C6969E62a10bABfED4F5fF8373278';
+      const deadAddress = '0x000000000000000000000000000000000000dEaD';
+      
+      // URL para buscar a última transação
+      const url = `https://api.bscscan.com/api?module=account&action=tokentx&contractaddress=${contractAddress}&address=${deadAddress}&page=1&offset=1&sort=desc&apikey=${API_KEY}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Erro na requisição: ' + response.status);
+        }
+        
+        const data = await response.json();
+        if (data.status === '1' && data.result.length > 0) {
+          const lastTx = data.result[0];
+          const timeStamp = parseInt(lastTx.timeStamp, 10); // Unix time em segundos
+          const nowSeconds = Math.floor(Date.now() / 1000);
+          const diffSeconds = nowSeconds - timeStamp;
+          const diffDays = Math.floor(diffSeconds / (3600 * 24));
+          const ageString = `${diffDays} days ago`;
+
+          // Exibe apenas a informação de "Age"
+          document.getElementById('result').innerHTML = `<p>${ageString}</p>`;
+        } else {
+          document.getElementById('result').innerHTML = `<p class="error">Nenhuma transação encontrada ou resposta inválida da API.</p>`;
+        }
+      } catch (error) {
+        document.getElementById('result').innerHTML = `<p class="error">Erro: ${error.message}</p>`;
+      }
+    }
+
+    // Chama a função ao carregar a página
+    window.addEventListener('DOMContentLoaded', fetchLastTxAge);
