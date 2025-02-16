@@ -2,30 +2,29 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Extrair Age da Transação Mais Recente</title>
+  <title>Última Transaction Hash</title>
 </head>
 <body>
   <div id="result">Carregando...</div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Seleciona a primeira linha (transação mais recente) da tabela
+      // Seleciona a primeira linha da tabela de transações
       var firstRow = document.querySelector("table tbody tr");
       if (!firstRow) {
         document.getElementById("result").innerText = "Nenhuma transação encontrada.";
         return;
       }
       
-      // Procura o elemento <span> dentro do <td> com a classe "showAge"
-      var ageSpan = firstRow.querySelector("td.showAge span");
-      if (!ageSpan) {
-        document.getElementById("result").innerText = "Campo 'Age' não encontrado.";
+      // A transação hash está na segunda célula (<td>) — usamos o seletor nth-child(2)
+      var txHashLink = firstRow.querySelector("td:nth-child(2) a.hash-tag");
+      if (!txHashLink) {
+        document.getElementById("result").innerText = "Transaction Hash não encontrado.";
         return;
       }
       
-      // Extrai e exibe o texto (por exemplo, "452 days ago")
-      var ageText = ageSpan.textContent.trim();
-      document.getElementById("result").innerText = "Age da transação mais recente: " + ageText;
+      var lastTxHash = txHashLink.innerText.trim();
+      document.getElementById("result").innerText = "Última Transaction Hash: " + lastTxHash;
     });
   </script>
 </body>
