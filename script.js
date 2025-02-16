@@ -134,7 +134,7 @@ async function fetchCryptoPrices() {
         `
       },
       {
-        title: "🎁 Attention, Cakemoon community! 🎁",
+        title: "Giveaway Announcement 🎁",
         content: `
           <p>We have a special surprise coming your way: an exclusive Giveaway is on the horizon to reward our dedicated supporters. Make sure to follow our official channels to receive all updates and participation instructions. Don’t miss out on this unique opportunity!</p>
         `
