@@ -2,68 +2,43 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Quantidade de Holders</title>
+  <title>Lista de Holders do Token</title>
 </head>
 <body>
-  <h1>Quantidade de Holdersaaa</h1>
-  <p id="holders">Carregando...</p>
+  <h1>Holders do Token</h1>
+  <p id="holderCount">Carregando...</p>
+  <ul id="holderList"></ul>
 
   <script>
-    // URL da página do token na BscScan
-    const tokenUrl = 'https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278#balances';
+    // Substitua 'YourApiKeyToken' pela sua chave de API do BscScan
+    const apiKey = 'NABPG1J8DPTD6NMNU4WZIT4GCB258666UQ';
+    const contractAddress = '0x893535ED1b5C6969E62a10bABfED4F5fF8373278';
+    const page = 1;
+    const offset = 10; // Número de registros por página
 
-    // Proxy do cors-anywhere (precisa ativar em https://cors-anywhere.herokuapp.com/corsdemo)
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const fetchUrl = proxyUrl + tokenUrl;
+    // Monta a URL da API
+    const apiUrl = `https://api.bscscan.com/api?module=token&action=tokenholderlist&contractaddress=${contractAddress}&page=${page}&offset=${offset}&apikey=${apiKey}`;
 
-    fetch(fetchUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then(html => {
-        // Cria um DOM virtual para analisar o HTML retornado
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-
-        // Vamos procurar o <small> que contenha exatamente "Holders"
-        // e tentar capturar o texto logo abaixo dele (geralmente em <span> com a classe .font-weight-medium)
-        let holdersNumber = null;
-
-        // Seleciona todos os <small> e verifica qual tem o texto "Holders"
-        const smallEls = doc.querySelectorAll('small');
-        smallEls.forEach(small => {
-          if (small.textContent.trim().toLowerCase() === 'holders') {
-            // Encontramos o "small" que diz "Holders".
-            // Normalmente, o número aparece em um <span> .font-weight-medium no mesmo bloco.
-            const parent = small.closest('.col-12, .col-md-3, .col-lg-3') || small.parentElement;
-            if (parent) {
-              // Busca o <span> que contém o número
-              const spanWithNumber = parent.querySelector('span.font-weight-medium');
-              if (spanWithNumber) {
-                // Exemplo de texto: "4,893 addresses"
-                const rawText = spanWithNumber.textContent.trim();
-                // Extrai apenas a parte numérica, ex.: "4,893"
-                const match = rawText.match(/[\d,]+/);
-                if (match) {
-                  holdersNumber = match[0]; 
-                }
-              }
-            }
-          }
-        });
-
-        if (holdersNumber) {
-          document.getElementById('holders').innerText = holdersNumber;
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "1") {
+          const holders = data.result;
+          document.getElementById('holderCount').innerText = `Holders retornados: ${holders.length}`;
+          
+          const ul = document.getElementById('holderList');
+          holders.forEach(holder => {
+            // Cada objeto normalmente contém os campos TokenHolderAddress e TokenHolderQuantity
+            const li = document.createElement('li');
+            li.innerText = `Endereço: ${holder.TokenHolderAddress} - Quantidade: ${holder.TokenHolderQuantity}`;
+            ul.appendChild(li);
+          });
         } else {
-          document.getElementById('holders').innerText =
-            'Não foi possível encontrar o número de holders.';
+          document.getElementById('holderCount').innerText = 'Erro: ' + data.message;
         }
       })
       .catch(error => {
-        document.getElementById('holders').innerText = 'Erro: ' + error;
+        document.getElementById('holderCount').innerText = 'Erro na requisição: ' + error;
       });
   </script>
 </body>
