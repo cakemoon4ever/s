@@ -130,22 +130,19 @@ async function fetchCryptoPrices() {
       {
         title: "Giveaway Announcement",
         content: `
-          <p>The exclusive Cakemoon Giveaway kicks off once the token bonds to Raydium! 0.5% (5M) of the supply will find a new holder.<br>
-          Every purchase over $50 counts, and winners must hold tokens for at least 48 hours.</p>
+          <p>Get ready for an incredible opportunity! The Cakemoon team is preparing an exclusive Giveaway for our most loyal members. Stay tuned so you don’t miss your chance to participate and win amazing rewards. Keep an eye on our updates!</p>
+        `
+      },
+      {
+        title: "🎁 Attention, Cakemoon community! 🎁",
+        content: `
+          <p>We have a special surprise coming your way: an exclusive Giveaway is on the horizon to reward our dedicated supporters. Make sure to follow our official channels to receive all updates and participation instructions. Don’t miss out on this unique opportunity!</p>
         `
       },
       {
         title: "Giveaway Announcement",
         content: `
-          <p>After bonding $MOON to Raydium, an exclusive Giveaway will be sponsored! 0.5% (5M) of the supply goes to a new holder.<br>
-          Purchases over $50 count—hold your tokens for 48 hours to be eligible.</p>
-        `
-      },
-      {
-        title: "Giveaway Announcement",
-        content: `
-          <p>Get ready for an exciting Giveaway once $MOON bonds to Raydium! 0.5% (5M) of the supply is up for grabs.<br>
-          All purchases over $50 qualify; remember to hold your tokens for 48 hours to win.</p>
+          <p>Cakemoon is preparing a fantastic Giveaway to thank everyone who is part of our community. Keep an eye on our official announcements to learn how to participate and win amazing prizes. Your chance to win is coming soon!</p>
         `
       }
     ];
