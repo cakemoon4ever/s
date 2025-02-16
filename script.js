@@ -456,18 +456,18 @@ async function fetchCryptoPrices() {
             const remainderSeconds = diffSeconds - (diffDays * 3600 * 24);
             const hours = Math.floor(remainderSeconds / 3600);
             const minutes = Math.floor((remainderSeconds % 3600) / 60);
-            ageString = `${diffDays} days`;
+            ageString = `${diffDays}d`;
             if (hours > 0) ageString += ` ${hours}h`;
-            if (minutes > 0) ageString += ` ${minutes} min`;
+            if (minutes > 0) ageString += ` ${minutes}m`;
             ageString += " ago";
           } else {
             // Menos de 1 dia: mostra em horas e minutos
             const hours = Math.floor(diffSeconds / 3600);
             const minutes = Math.floor((diffSeconds % 3600) / 60);
             if (hours > 0) {
-              ageString = `${hours}h ${minutes} min ago`;
+              ageString = `${hours}h ${minutes}m ago`;
             } else {
-              ageString = `${minutes} min ago`;
+              ageString = `${minutes} minutes ago`;
             }
           }
 
