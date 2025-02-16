@@ -1,24 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Último Transaction Hash</title>
+  <title>Última Transaction Hash</title>
 </head>
 <body>
   <div id="result">Carregando...</div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Procura o primeiro link que possua href iniciando com "/tx/" dentro da tabela
-      var txLink = document.querySelector("table tbody tr a[href^='/tx/']");
-      if (txLink) {
-        // O texto exibido no link geralmente é o transaction hash
-        var txHash = txLink.textContent.trim();
-        document.getElementById("result").innerText = "Último Transaction Hash: " + txHash;
-      } else {
-        document.getElementById("result").innerText = "Transaction Hash não encontrado.";
-      }
-    });
+    // URL da página do token com a carteira "dead"
+    const url = 'https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278?a=0x000000000000000000000000000000000000dead';
+    
+    // Proxy para contornar CORS (lembre-se de ativar o acesso temporário em https://cors-anywhere.herokuapp.com/corsdemo)
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
+    const fetchUrl = proxy + url;
+    
+    fetch(fetchUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro na resposta: ' + response.status);
+        }
+        return response.text();
+      })
+      .then(htmlText => {
+        // Converter o HTML em um DOM usando DOMParser
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, 'text/html');
+
+        // Procura a primeira linha (<tr>) do <tbody> da tabela de transações
+        const firstRow = doc.querySelector('table tbody tr');
+        if (!firstRow) {
+          throw new Error("Nenhuma transação encontrada.");
+        }
+        
+        // Normalmente, o transaction hash está no segundo <td> (índice 1)
+        const txLink = firstRow.querySelector("td:nth-child(2) a[href^='/tx/']");
+        if (!txLink) {
+          throw new Error("Link da transação não encontrado.");
+        }
+        
+        const txHash = txLink.textContent.trim();
+        document.getElementById('result').innerText = "Último Transaction Hash: " + txHash;
+      })
+      .catch(error => {
+        document.getElementById('result').innerText = "Erro: " + error;
+      });
   </script>
 </body>
 </html>
