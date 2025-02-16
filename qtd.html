@@ -5,17 +5,17 @@
   <title>Quantidade de Holders</title>
 </head>
 <body>
-  <h1>Quantidade de Holders</h1>
+  <h1>Quantidade de Holdersaaa</h1>
   <p id="holders">Carregando...</p>
 
   <script>
     // URL da página do token na BscScan
     const tokenUrl = 'https://bscscan.com/token/0x893535ED1b5C6969E62a10bABfED4F5fF8373278#balances';
-    
+
     // Proxy do cors-anywhere (precisa ativar em https://cors-anywhere.herokuapp.com/corsdemo)
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const fetchUrl = proxyUrl + tokenUrl;
-    
+
     fetch(fetchUrl)
       .then(response => {
         if (!response.ok) {
@@ -24,29 +24,42 @@
         return response.text();
       })
       .then(html => {
-        // Cria um DOM virtual para analisar o HTML
+        // Cria um DOM virtual para analisar o HTML retornado
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
 
-        // Tenta encontrar um elemento que contenha a palavra "Holders" e, perto dele,
-        // o texto com o número de holders, ex: "4,893 addresses".
+        // Vamos procurar o <small> que contenha exatamente "Holders"
+        // e tentar capturar o texto logo abaixo dele (geralmente em <span> com a classe .font-weight-medium)
         let holdersNumber = null;
-        const allElements = doc.querySelectorAll('*');
-        for (let el of allElements) {
-          if (el.textContent.includes('Holders')) {
-            // Tenta capturar algo como "4,893 addresses"
-            const match = el.textContent.match(/[\d,]+\s+addresses/);
-            if (match) {
-              holdersNumber = match[0]; // ex.: "4,893 addresses"
-              break;
+
+        // Seleciona todos os <small> e verifica qual tem o texto "Holders"
+        const smallEls = doc.querySelectorAll('small');
+        smallEls.forEach(small => {
+          if (small.textContent.trim().toLowerCase() === 'holders') {
+            // Encontramos o "small" que diz "Holders".
+            // Normalmente, o número aparece em um <span> .font-weight-medium no mesmo bloco.
+            const parent = small.closest('.col-12, .col-md-3, .col-lg-3') || small.parentElement;
+            if (parent) {
+              // Busca o <span> que contém o número
+              const spanWithNumber = parent.querySelector('span.font-weight-medium');
+              if (spanWithNumber) {
+                // Exemplo de texto: "4,893 addresses"
+                const rawText = spanWithNumber.textContent.trim();
+                // Extrai apenas a parte numérica, ex.: "4,893"
+                const match = rawText.match(/[\d,]+/);
+                if (match) {
+                  holdersNumber = match[0]; 
+                }
+              }
             }
           }
-        }
+        });
 
         if (holdersNumber) {
           document.getElementById('holders').innerText = holdersNumber;
         } else {
-          document.getElementById('holders').innerText = 'Não foi possível encontrar o número de holders.';
+          document.getElementById('holders').innerText =
+            'Não foi possível encontrar o número de holders.';
         }
       })
       .catch(error => {
