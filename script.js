@@ -425,6 +425,7 @@ async function fetchCryptoPrices() {
     });
 
 // SCRIPT para ver a data da ultima queima
+    // SCRIPT para ver a data da última queima
     async function fetchLastTxAge() {
       // Substitua pela sua própria chave de API do BscScan
       const API_KEY = 'NABPG1J8DPTD6NMNU4WZIT4GCB258666UQ';
@@ -446,26 +447,31 @@ async function fetchCryptoPrices() {
           const timeStamp = parseInt(lastTx.timeStamp, 10); // Unix time em segundos
           const nowSeconds = Math.floor(Date.now() / 1000);
           const diffSeconds = nowSeconds - timeStamp;
-
-          // Calcula dias e minutos
-          const diffDays = Math.floor(diffSeconds / (3600 * 24));
-          const remainingSeconds = diffSeconds % (3600 * 24);
-          const diffMinutes = Math.floor(remainingSeconds / 60);
           
-          // Monta a string de idade
           let ageString = "";
+          const diffDays = Math.floor(diffSeconds / (3600 * 24));
+
           if (diffDays > 0) {
+            // Se passaram 1 ou mais dias
+            const remainderSeconds = diffSeconds - (diffDays * 3600 * 24);
+            const hours = Math.floor(remainderSeconds / 3600);
+            const minutes = Math.floor((remainderSeconds % 3600) / 60);
             ageString = `${diffDays} days`;
-            if (diffMinutes > 0) {
-              ageString += ` and ${diffMinutes} minuntes ago`;
-            } else {
-              ageString += ` ago`;
-            }
+            if (hours > 0) ageString += ` ${hours}h`;
+            if (minutes > 0) ageString += ` ${minutes} min`;
+            ageString += " ago";
           } else {
-            ageString = `${diffMinutes} min ago`;
+            // Menos de 1 dia: mostra em horas e minutos
+            const hours = Math.floor(diffSeconds / 3600);
+            const minutes = Math.floor((diffSeconds % 3600) / 60);
+            if (hours > 0) {
+              ageString = `${hours}h ${minutes} min ago`;
+            } else {
+              ageString = `${minutes} min ago`;
+            }
           }
 
-          // Exibe a informação de "Age" sem usar elementos de bloco
+          // Exibe o resultado sem envolver em elementos de bloco
           document.getElementById('result').innerHTML = ageString;
         } else {
           document.getElementById('result').innerHTML = 'Error reading burn hash. [F5] to load page again.';
@@ -474,6 +480,5 @@ async function fetchCryptoPrices() {
         document.getElementById('result').innerHTML = 'Erro: ' + error.message;
       }
     }
-
     // Chama a função ao carregar a página
     window.addEventListener('DOMContentLoaded', fetchLastTxAge);
