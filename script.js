@@ -1,6 +1,6 @@
 // Espera o DOM estar carregado antes de iniciar
 document.addEventListener("DOMContentLoaded", () => {
-  /* SPLASH MODAL: Typewriter Effect */
+  /* SPLASH MODAL: Typewriter Effect 
   const splashModal = document.getElementById("splashModal");
   const hackerTextElem = document.getElementById("hacker-text");
   const splashText = "Cakemoon is 4life\nEarn passive income in $Cake\na Kader Effect token";
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   splashModal.style.opacity = "0";
   setTimeout(() => {
     splashModal.style.display = "none";
-  }, totalDuration);
+  }, totalDuration); */
 
 /* Crypto Prices Ticker */
 async function fetchCryptoPrices() {
